@@ -1,0 +1,153 @@
+@import "tailwindcss";
+
+/* ===========================================================
+   ResumeScope design tokens
+   Reuse these everywhere — never hardcode a hex in a component.
+   Matches the palette in color-palette-guide.md.
+=========================================================== */
+
+@layer base {
+  :root {
+    --ink: #141a2e;
+    --ink-soft: #2b3350;
+    --paper: #f4f6f5;
+    --card: #ffffff;
+    --border: #e1e6e3;
+    --muted: #5b6472;
+
+    --good: #0e8a6d;
+    --good-bg: #e8f5f0;
+    --warn: #c8801f;
+    --warn-bg: #fbf1e2;
+    --bad: #c14545;
+    --bad-bg: #fbeaea;
+
+    --accent: var(--good);
+  }
+
+  /* Respects system dark mode automatically. If you'd rather toggle
+     manually, add class="dark" to <html> and Tailwind's darkMode: 'class'
+     will apply this block instead — see tailwind.config note below. */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ink: #eef0f4;
+      --ink-soft: #c7cce0;
+      --paper: #0f1320;
+      --card: #171c2c;
+      --border: #2a3145;
+      --muted: #8891a8;
+
+      --good: #33b892;
+      --good-bg: #12291f;
+      --warn: #e0a24a;
+      --warn-bg: #2e2413;
+      --bad: #e07070;
+      --bad-bg: #2e1616;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ink: #eef0f4;
+    --ink-soft: #c7cce0;
+    --paper: #0f1320;
+    --card: #171c2c;
+    --border: #2a3145;
+    --muted: #8891a8;
+
+    --good: #33b892;
+    --good-bg: #12291f;
+    --warn: #e0a24a;
+    --warn-bg: #2e2413;
+    --bad: #e07070;
+    --bad-bg: #2e1616;
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+  }
+}
+
+/* ===========================================================
+   Component classes — build new sections with these instead of
+   picking colors ad hoc. Combine with Tailwind utilities for
+   spacing/layout (p-6, gap-4, grid-cols-3, etc).
+=========================================================== */
+
+@layer components {
+  /* Cards */
+  .card {
+    @apply rounded-2xl border;
+    background: var(--card);
+    border-color: var(--border);
+  }
+
+  /* Buttons */
+  .btn {
+    @apply rounded-lg px-4 py-2 text-sm font-semibold border transition-colors;
+    background: var(--card);
+    border-color: var(--border);
+    color: var(--ink);
+  }
+  .btn-primary {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--paper);
+  }
+
+  /* Text */
+  .text-muted {
+    color: var(--muted);
+  }
+  .text-ink-soft {
+    color: var(--ink-soft);
+  }
+
+  /* Signal badges — status/priority tags (score bands, suggestion
+     severity, skill priority). Pick ONE of these three, never a new color. */
+  .badge-good {
+    background: var(--good-bg);
+    color: var(--good);
+  }
+  .badge-warn {
+    background: var(--warn-bg);
+    color: var(--warn);
+  }
+  .badge-bad {
+    background: var(--bad-bg);
+    color: var(--bad);
+  }
+
+  .badge {
+    @apply inline-flex items-center rounded-full px-3 py-1 text-xs font-bold;
+  }
+
+  /* Progress / score bars — pair the fill color with the same
+     badge tier the score falls into (good/warn/bad). */
+  .bar-track {
+    @apply h-2 w-full overflow-hidden rounded-full border;
+    background: var(--paper);
+    border-color: var(--border);
+  }
+  .bar-fill {
+    @apply h-full rounded-full;
+  }
+  .bar-fill-good {
+    background: var(--good);
+  }
+  .bar-fill-warn {
+    background: var(--warn);
+  }
+  .bar-fill-bad {
+    background: var(--bad);
+  }
+
+  /* Before/after comparison blocks (suggestions feature) */
+  .compare-before {
+    background: var(--bad-bg);
+    color: var(--ink-soft);
+  }
+  .compare-after {
+    background: var(--good-bg);
+    color: var(--ink-soft);
+  }
+}
